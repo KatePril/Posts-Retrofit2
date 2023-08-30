@@ -12,6 +12,7 @@ public class AppView {
 
     public static void getMenu() {
         System.out.println("""
+                
                 ----- MENU -----
                 1 - Get all posts.
                 2 - Get post by id.

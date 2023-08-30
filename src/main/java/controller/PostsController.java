@@ -6,6 +6,7 @@ import entity.Post;
 import entity.PostsResponse;
 import model.PostModel;
 import retrofit2.Response;
+import utils.AppStarter;
 import utils.Constants;
 import view.PostsView;
 
@@ -25,11 +26,12 @@ public class PostsController {
 
     public void getPosts() {
         view.getOutput(readPosts());
-
+        AppStarter.startApp();
     }
 
     private String readPosts() {
-        Optional<Response<PostsResponse>> optional = model.fetchPosts();
+        Optional<Response<Post>> optional = model.fetchPosts();
+
         if (optional.isEmpty()) {
             return Constants.NO_DATA_MSG;
         } else {

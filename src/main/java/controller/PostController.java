@@ -6,6 +6,7 @@ import entity.Post;
 import entity.PostResponse;
 import model.PostModel;
 import retrofit2.Response;
+import utils.AppStarter;
 import utils.Constants;
 import view.PostByIdView;
 import view.PostsView;
@@ -22,18 +23,20 @@ public class PostController {
     }
 
     public void getPostById() {
-//        view.getOutput();
+        view.getOutput(readPostById(
+                Integer.parseInt(view.getData())
+        ));
+        AppStarter.startApp();
     }
 
     private String readPostById(int id) {
-        Optional<Response<PostResponse>> optional = model.fetchPostById(id);
+        Optional<Response<Post>> optional = model.fetchPostById(id);
 
         if (optional.isEmpty()) {
             return Constants.NO_DATA_MSG;
         } else {
             Gson gson = new Gson();
-            Post post = gson.fromJson(String.valueOf(optional.get().body()),
-                    new TypeToken<Post>() {}.getType());
+            Post post = gson.fromJson(String.valueOf(optional.get().body()), new TypeToken<Post>() {}.getType());
             return "Post: id " + post.getId()
                     + ", userId " + post.getUserId()
                     + ";\n title: " + post.getTitle()
