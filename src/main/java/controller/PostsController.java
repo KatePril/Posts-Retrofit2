@@ -30,7 +30,7 @@ public class PostsController {
     }
 
     private String readPosts() {
-        Optional<Response<Post>> optional = model.fetchPosts();
+        Optional<Response<List<Post>>> optional = model.fetchPosts();
 
         if (optional.isEmpty()) {
             return Constants.NO_DATA_MSG;
@@ -40,14 +40,14 @@ public class PostsController {
             List<Post> posts = gson.fromJson(String.valueOf(optional.get().body()),
                     new TypeToken<List<Post>>() {}.getType());
             StringBuilder stringBuilder = new StringBuilder();
-            AtomicInteger cnt = new AtomicInteger(0);
+            AtomicInteger cnt = new AtomicInteger(1);
             String str;
 
             for (Post post : posts) {
                 str = cnt.getAndIncrement() + ") Post: id " + post.getId()
                         + ", userId " + post.getUserId()
                         + ";\n title: " + post.getTitle()
-                        + ";\n body: " + post.getBody();
+                        + ";\n body: " + post.getBody() + "\n";
                 stringBuilder.append(str);
             }
             return stringBuilder.toString();

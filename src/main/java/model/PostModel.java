@@ -6,20 +6,23 @@ import network.ApiService;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PostModel {
 
-    public Optional<Response<Post>> fetchPosts() {
+    public Optional<Response<List<Post>>> fetchPosts() {
         ApiClient client = new ApiClient();
         ApiService service = client.getService();
-        Call<Post> call = service.getPosts();
-        Optional<Response<Post>> optional;
+        Call<List<Post>> call = service.getPosts();
+        Optional<Response<List<Post>>> optional;
 
         try {
             optional = Optional.of(call.execute());
+            System.out.println("OK");
         } catch (Exception e) {
             optional = Optional.empty();
+            System.out.println("FAILED");
         }
 
         return optional;
